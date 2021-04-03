@@ -43,7 +43,7 @@
     "@fluidframework/sequence": "^0.37.0",
     "@fluidframework/view-interfaces": "^0.37.0",
     "@types/node": "^10.17.24",
-    "monaco-editor": "^0.15.6"
+    "monaco-editor": "^0.23.0"
   },
   "devDependencies": {
     "@fluidframework/build-common": "^0.20.0",
