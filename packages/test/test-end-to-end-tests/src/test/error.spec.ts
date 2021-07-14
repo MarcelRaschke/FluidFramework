@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
@@ -22,23 +22,29 @@ import { createWriteError } from "@fluidframework/driver-utils";
 import {
     createOdspNetworkError,
     invalidFileNameStatusCode,
-    OdspErrorType,
 } from "@fluidframework/odsp-doclib-utils";
-import { LoggingError } from "@fluidframework/telemetry-utils";
-import { createDocumentId, LocalCodeLoader, LoaderContainerTracker } from "@fluidframework/test-utils";
-import { ITestDriver } from "@fluidframework/test-driver-definitions";
+import { OdspErrorType } from "@fluidframework/odsp-driver-definitions";
+import { ChildLogger, LoggingError } from "@fluidframework/telemetry-utils";
+import {
+    createDocumentId,
+    LocalCodeLoader,
+    LoaderContainerTracker,
+    ITestObjectProvider,
+} from "@fluidframework/test-utils";
+import { describeNoCompat } from "@fluidframework/test-version-utils";
 
-describe("Errors Types", () => {
+// REVIEW: enable compat testing?
+describeNoCompat("Errors Types", (getTestObjectProvider) => {
+    let provider: ITestObjectProvider;
     let urlResolver: IUrlResolver;
     let testRequest: IRequest;
     let testResolved: IFluidResolvedUrl;
     let documentServiceFactory: IDocumentServiceFactory;
     let codeLoader: LocalCodeLoader;
     let loader: Loader;
-    let driver: ITestDriver;
     const loaderContainerTracker = new LoaderContainerTracker();
     before(() => {
-        driver = getFluidTestDriver() as unknown as ITestDriver;
+        provider = getTestObjectProvider();
     });
     afterEach(() => {
         loaderContainerTracker.reset();
@@ -47,17 +53,18 @@ describe("Errors Types", () => {
     it("GeneralError Test", async () => {
         const id = createDocumentId();
         // Setup
-        urlResolver = driver.createUrlResolver();
-        testRequest = { url: await driver.createContainerUrl(id) };
+
+        urlResolver = provider.urlResolver;
+        testRequest = { url: await provider.driver.createContainerUrl(id) };
         testResolved =
             await urlResolver.resolve(testRequest) as IFluidResolvedUrl;
-        documentServiceFactory = driver.createDocumentServiceFactory();
+        documentServiceFactory = provider.documentServiceFactory;
 
         const mockFactory = Object.create(documentServiceFactory) as IDocumentServiceFactory;
         mockFactory.createDocumentService = async (resolvedUrl) => {
             const service = await documentServiceFactory.createDocumentService(resolvedUrl);
             // eslint-disable-next-line prefer-promise-reject-errors
-            service.connectToDeltaStorage = async () => Promise.reject(false);
+            service.connectToDeltaStream = async () => Promise.reject(false);
             return service;
         };
 
@@ -67,6 +74,7 @@ describe("Errors Types", () => {
             urlResolver,
             documentServiceFactory: mockFactory,
             codeLoader,
+            logger: ChildLogger.create(getTestLogger?.(), undefined, { all: { driverType: provider.driver.type } }),
         });
         loaderContainerTracker.add(loader);
 
@@ -76,11 +84,9 @@ describe("Errors Types", () => {
                 {
                     canReconnect: testRequest.headers?.[LoaderHeader.reconnect],
                     clientDetailsOverride: testRequest.headers?.[LoaderHeader.clientDetails],
-                    containerUrl: testRequest.url,
-                    docId: "documentId",
                     resolvedUrl: testResolved,
-                    version: testRequest.headers?.[LoaderHeader.version],
-                    pause: testRequest.headers?.[LoaderHeader.pause],
+                    version: testRequest.headers?.[LoaderHeader.version] ?? undefined,
+                    loadMode: testRequest.headers?.[LoaderHeader.loadMode],
                 },
             );
 

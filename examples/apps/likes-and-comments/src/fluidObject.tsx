@@ -1,17 +1,18 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
 import {
     DataObjectFactory,
 } from "@fluidframework/aqueduct";
+import { IEvent } from "@fluidframework/common-definitions";
 import {
     SyncedDataObject,
     setSyncedCounterConfig,
     setSyncedArrayConfig,
     setSyncedStringConfig,
-} from "@fluidframework/react";
+} from "@fluid-experimental/react";
 import { SharedCounter } from "@fluidframework/counter";
 import { SharedObjectSequence, SharedString } from "@fluidframework/sequence";
 import * as React from "react";
@@ -23,16 +24,17 @@ const defaultImgUrl = "https://picsum.photos/id/221/1200/800";
 export class LikesAndComments extends SyncedDataObject {
     public static get Name() { return "LikesAndComments"; }
 
-    public static readonly factory = new DataObjectFactory(
-        LikesAndComments.name,
-        LikesAndComments,
-        [
-            SharedCounter.getFactory(),
-            SharedObjectSequence.getFactory(),
-            SharedString.getFactory(),
-        ],
-        {},
-    );
+    public static readonly factory =
+        new DataObjectFactory<LikesAndComments, unknown, unknown, IEvent>(
+            LikesAndComments.name,
+            LikesAndComments,
+            [
+                SharedCounter.getFactory(),
+                SharedObjectSequence.getFactory(),
+                SharedString.getFactory(),
+            ],
+            {},
+        );
 
     constructor(props) {
         super(props);

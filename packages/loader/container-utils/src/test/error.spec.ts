@@ -1,11 +1,11 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
 import { strict as assert } from "assert";
 import { ContainerErrorType } from "@fluidframework/container-definitions";
-import { LoggingError } from "@fluidframework/telemetry-utils";
+import { isILoggingError, LoggingError } from "@fluidframework/telemetry-utils";
 import { CreateContainerError, CreateProcessingError } from "../error";
 
 describe("Errors", () => {
@@ -22,21 +22,29 @@ describe("Errors", () => {
             // eslint-disable-next-line @typescript-eslint/dot-notation
             assert(testError["stack"] === originalError.stack);
         });
+        it("Wrap LoggingError with no errorType", () => {
+            const loggingError = new LoggingError("hello", { foo: "bar" });
+            const testError = CreateContainerError(loggingError);
+
+            assert(testError.errorType === ContainerErrorType.genericError);
+            assert(isILoggingError(testError));
+        });
     });
 
     describe("DataProcessingError coercion", () => {
         it("Should preserve the stack", () => {
             const originalError = new Error();
-            const testError = CreateProcessingError(originalError);
+            const testError = CreateProcessingError(originalError, undefined);
 
             assert((testError as any).stack === originalError.stack);
         });
         it("Should skip coercion for LoggingErrors", () => {
-            const originalError = new LoggingError("Inherited error message", {
-                errorType: "Demoted error type",
-                otherProperty: "Considered PII-free property",
-            });
-            const coercedError = CreateProcessingError(originalError);
+            const originalError = new LoggingError(
+                "Inherited error message", {
+                    errorType: "Demoted error type",
+                    otherProperty: "Considered PII-free property",
+                });
+            const coercedError = CreateProcessingError(originalError, undefined);
 
             assert(coercedError as any === originalError);
         });
@@ -51,9 +59,10 @@ describe("Errors", () => {
                 Symbol("Unique"),
                 () => {},
                 [],
+                [1,2,3],
             ];
             const coercedErrors = originalMalformations.map((value) =>
-                CreateProcessingError(value),
+                CreateProcessingError(value, undefined),
             );
 
             assert(
@@ -69,13 +78,6 @@ describe("Errors", () => {
                 ),
             );
             assert(
-                coercedErrors.reduce(
-                    (messages, error) => messages.add(error.message),
-                    new Set(),
-                ).size === 1,
-                "All malformed inputs should generate a common error.message",
-            );
-            assert(
                 !originalMalformations.some(
                     (value) =>
                         typeof value === "string" ||
@@ -89,7 +91,7 @@ describe("Errors", () => {
 
         it("Should be coercible from a string message", () => {
             const originalMessage = "Example of some thrown string";
-            const coercedError = CreateProcessingError(originalMessage);
+            const coercedError = CreateProcessingError(originalMessage, undefined);
 
             assert(coercedError.message === originalMessage);
         });
@@ -98,8 +100,9 @@ describe("Errors", () => {
             const originalProps = {
                 message: "Inherited error message",
                 otherProperty: "Presumed PII-full property",
+                errorType: "specialErrorType", // will be overwritten
             };
-            const coercedError = CreateProcessingError(originalProps);
+            const coercedError = CreateProcessingError(originalProps, undefined);
 
             assert(coercedError.message === originalProps.message);
             assert(

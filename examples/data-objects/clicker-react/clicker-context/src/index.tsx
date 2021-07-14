@@ -1,11 +1,12 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
 import {
     DataObjectFactory,
 } from "@fluidframework/aqueduct";
+import { IEvent } from "@fluidframework/common-definitions";
 import {
     IViewState,
     createContextFluid,
@@ -13,7 +14,7 @@ import {
     IFluidState,
     IFluidContextProps,
     SyncedDataObject,
-} from "@fluidframework/react";
+} from "@fluid-experimental/react";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -24,16 +25,16 @@ interface ICounterState {
 
 interface ICounterFunctionalViewState
     extends IViewState,
-    ICounterState {}
+    ICounterState { }
 interface ICounterFunctionalFluidState
     extends IFluidState,
-    ICounterState {}
+    ICounterState { }
 
 function CounterReactFunctionalContext(
     props: IFluidContextProps<
-    ICounterFunctionalViewState,
-    ICounterFunctionalFluidState,
-    IFluidDataProps
+        ICounterFunctionalViewState,
+        ICounterFunctionalFluidState,
+        IFluidDataProps
     >,
 ) {
     const { Provider, Consumer, state, setState } = createContextFluid(props, { value: 0 });
@@ -81,7 +82,7 @@ export class ClickerContext extends SyncedDataObject {
             "counter-context",
             {
                 syncedStateId: "counter-context",
-                fluidToView:  new Map([
+                fluidToView: new Map([
                     [
                         "value", {
                             type: "number",
@@ -113,10 +114,11 @@ export class ClickerContext extends SyncedDataObject {
 }
 
 // ----- FACTORY SETUP -----
-export const ClickerContextInstantiationFactory = new DataObjectFactory(
-    "clicker-context",
-    ClickerContext,
-    [],
-    {},
-);
+export const ClickerContextInstantiationFactory =
+    new DataObjectFactory<ClickerContext, unknown, unknown, IEvent>(
+        "clicker-context",
+        ClickerContext,
+        [],
+        {},
+    );
 export const fluidExport = ClickerContextInstantiationFactory;

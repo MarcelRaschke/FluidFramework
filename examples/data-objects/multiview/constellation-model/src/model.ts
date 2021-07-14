@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
@@ -7,6 +7,7 @@ import {
     DataObject,
     DataObjectFactory,
 } from "@fluidframework/aqueduct";
+import { IEvent } from "@fluidframework/common-definitions";
 import { IFluidHandle } from "@fluidframework/core-interfaces";
 import { IValueChanged } from "@fluidframework/map";
 
@@ -27,7 +28,7 @@ export class Constellation extends DataObject implements IConstellation {
         return Constellation.factory;
     }
 
-    private static readonly factory = new DataObjectFactory(
+    private static readonly factory = new DataObjectFactory<Constellation, undefined, undefined, IEvent>(
         Constellation.ComponentName,
         Constellation,
         [],

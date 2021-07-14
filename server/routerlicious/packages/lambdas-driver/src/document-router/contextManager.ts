@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
@@ -52,10 +52,21 @@ export class DocumentContextManager extends EventEmitter {
         this.contexts.delete(context);
     }
 
-    public setHead(head: IQueuedMessage) {
-        assert(head.offset > this.head.offset, `${head.offset} > ${this.head.offset}`);
+    public getHeadOffset() {
+        return this.head.offset;
+    }
 
-        this.head = head;
+    /**
+     * Updates the head to the new offset. The head offset will not be updated if it stays the same or moves backwards.
+     * @returns True if the head was updated, false if it was not.
+     */
+    public setHead(head: IQueuedMessage) {
+        if (head.offset > this.head.offset) {
+            this.head = head;
+            return true;
+        }
+
+        return false;
     }
 
     public setTail(tail: IQueuedMessage) {

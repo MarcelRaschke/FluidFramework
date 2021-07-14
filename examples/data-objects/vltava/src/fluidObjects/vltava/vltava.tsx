@@ -1,11 +1,13 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
 import { DataObject, DataObjectFactory } from "@fluidframework/aqueduct";
-import { IFluidHTMLView } from "@fluidframework/view-interfaces";
+import { IEvent } from "@fluidframework/common-definitions";
+
 import { IFluidHandle } from "@fluidframework/core-interfaces";
+import { IFluidHTMLView } from "@fluidframework/view-interfaces";
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -22,7 +24,8 @@ const defaultObjectId = "tabs-id";
 export class Vltava extends DataObject implements IFluidHTMLView {
     private dataModelInternal: IVltavaDataModel | undefined;
 
-    private static readonly factory = new DataObjectFactory("vltava", Vltava, [], {});
+    private static readonly factory =
+        new DataObjectFactory<Vltava, undefined, undefined, IEvent>("vltava", Vltava, [], {});
 
     public static getFactory() {
         return Vltava.factory;

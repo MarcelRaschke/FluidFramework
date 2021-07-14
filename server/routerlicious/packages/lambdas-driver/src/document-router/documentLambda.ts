@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
@@ -7,13 +7,13 @@ import {
     extractBoxcar,
     IContext,
     IQueuedMessage,
+    IPartitionConfig,
     IPartitionLambda,
     IPartitionLambdaFactory,
     LambdaCloseType,
     IContextErrorData,
     IDocumentLambdaServerConfiguration,
 } from "@fluidframework/server-services-core";
-import { Provider } from "nconf";
 import { DocumentContextManager } from "./contextManager";
 import { DocumentPartition } from "./documentPartition";
 
@@ -25,8 +25,8 @@ export class DocumentLambda implements IPartitionLambda {
 
     constructor(
         private readonly factory: IPartitionLambdaFactory,
-        private readonly config: Provider,
-        context: IContext,
+        private readonly config: IPartitionConfig,
+        private readonly context: IContext,
         private readonly documentLambdaServerConfiguration: IDocumentLambdaServerConfiguration) {
         this.contextManager = new DocumentContextManager(context);
         this.contextManager.on("error", (error, errorData: IContextErrorData) => {
@@ -37,10 +37,17 @@ export class DocumentLambda implements IPartitionLambda {
             documentLambdaServerConfiguration.partitionActivityCheckInterval);
     }
 
-    public handler(message: IQueuedMessage): void {
-        this.contextManager.setHead(message);
+    public handler(message: IQueuedMessage) {
+        if (!this.contextManager.setHead(message)) {
+            this.context.log?.warn("Unexpected head offset. " +
+                `head offset: ${this.contextManager.getHeadOffset()}, message offset: ${message.offset}`);
+            return undefined;
+        }
+
         this.handlerCore(message);
         this.contextManager.setTail(message);
+
+        return undefined;
     }
 
     public close(closeType: LambdaCloseType) {

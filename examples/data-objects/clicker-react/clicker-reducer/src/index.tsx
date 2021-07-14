@@ -1,11 +1,12 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
 import {
     DataObjectFactory,
 } from "@fluidframework/aqueduct";
+import { IEvent } from "@fluidframework/common-definitions";
 import {
     IFluidReducerProps,
     IViewState,
@@ -15,7 +16,7 @@ import {
     IFluidState,
     IFluidReducer,
     SyncedDataObject,
-} from "@fluidframework/react";
+} from "@fluid-experimental/react";
 import { SharedCounter } from "@fluidframework/counter";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -38,9 +39,9 @@ interface IActionReducer
     IFluidDataProps
     > {
     increment: FluidStateUpdateFunction<
-    ICounterReducerViewState,
-    ICounterReducerFluidState,
-    IFluidDataProps
+        ICounterReducerViewState,
+        ICounterReducerFluidState,
+        IFluidDataProps
     >;
 }
 
@@ -60,12 +61,12 @@ export const ActionReducer: IActionReducer = {
 
 function CounterReactFunctionalReducer(
     props: IFluidReducerProps<
-    ICounterReducerViewState,
-    ICounterReducerFluidState,
-    IActionReducer,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    {},
-    IFluidDataProps
+        ICounterReducerViewState,
+        ICounterReducerFluidState,
+        IActionReducer,
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        {},
+        IFluidDataProps
     >,
 ) {
     const [state, dispatch] = useReducerFluid(props, { value: 0 });
@@ -100,11 +101,11 @@ export class ClickerReducer extends SyncedDataObject {
     constructor(props) {
         super(props);
 
-        this.setFluidConfig<ICounterReducerViewState,ICounterReducerFluidState>(
+        this.setFluidConfig<ICounterReducerViewState, ICounterReducerFluidState>(
             "counter-reducer",
             {
                 syncedStateId: "counter-reducer",
-                fluidToView:  new Map([
+                fluidToView: new Map([
                     [
                         "counter", {
                             type: SharedCounter.name,
@@ -156,10 +157,11 @@ export class ClickerReducer extends SyncedDataObject {
 }
 
 // ----- FACTORY SETUP -----
-export const ClickerReducerInstantiationFactory = new DataObjectFactory(
-    "clicker-reducer",
-    ClickerReducer,
-    [SharedCounter.getFactory()],
-    {},
-);
+export const ClickerReducerInstantiationFactory =
+    new DataObjectFactory<ClickerReducer, unknown, unknown, IEvent>(
+        "clicker-reducer",
+        ClickerReducer,
+        [SharedCounter.getFactory()],
+        {},
+    );
 export const fluidExport = ClickerReducerInstantiationFactory;

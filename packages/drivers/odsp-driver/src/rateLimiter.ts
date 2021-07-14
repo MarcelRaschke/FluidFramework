@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
@@ -8,7 +8,7 @@ import { assert } from "@fluidframework/common-utils";
 export class RateLimiter {
     private readonly tasks: (() => void)[] = [];
     constructor(private maxRequests: number) {
-        assert(maxRequests > 0);
+        assert(maxRequests > 0, 0x0ae /* "Tried to create rate limiter with 0 max requests!" */);
     }
 
     public get waitQueueLength(): number {

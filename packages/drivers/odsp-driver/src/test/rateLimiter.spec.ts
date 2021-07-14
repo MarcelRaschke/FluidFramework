@@ -1,9 +1,9 @@
 /*!
- * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
 
-import { assert } from "@fluidframework/common-utils";
+import { strict as assert } from "assert";
 import { RateLimiter } from "../rateLimiter";
 
 describe("Rate Limiter", () => {
