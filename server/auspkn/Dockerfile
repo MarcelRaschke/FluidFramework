@@ -1,7 +1,7 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
-FROM node:12.16.3-alpine AS base
+FROM node:12.22-alpine AS base
 
 RUN apk add --no-cache tini
 
