@@ -38,7 +38,7 @@
     "@fluidframework/runtime-definitions": "^0.26.0",
     "@fluidframework/server-services": "^0.1025.0",
     "@fluidframework/server-services-core": "^0.1012.2",
-    "@fluidframework/server-services-utils": "^0.1012.2",
+    "@fluidframework/server-services-utils": "^0.1019.0",
     "@fluidframework/view-adapters": "^0.26.0",
     "@fluidframework/web-code-loader": "^0.26.0",
     "commander": "^2.15.1",
