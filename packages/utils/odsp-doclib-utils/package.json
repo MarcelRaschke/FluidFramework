@@ -59,7 +59,7 @@
     "@fluidframework/driver-definitions": "^0.37.0",
     "@fluidframework/driver-utils": "^0.37.0",
     "@fluidframework/telemetry-utils": "^0.37.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.2.10"
   },
   "devDependencies": {
     "@fluidframework/build-common": "^0.20.0",
