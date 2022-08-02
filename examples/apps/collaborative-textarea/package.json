@@ -43,7 +43,7 @@
     "css-loader": "^1.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "style-loader": "^1.0.0"
+    "style-loader": "^3.3.1"
   },
   "devDependencies": {
     "@fluidframework/build-common": "^0.20.0",
