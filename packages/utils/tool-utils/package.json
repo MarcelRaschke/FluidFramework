@@ -58,7 +58,7 @@
     "@fluidframework/common-utils": "^0.32.1",
     "@fluidframework/odsp-doclib-utils": "^0.37.0",
     "@fluidframework/protocol-base": "^0.1021.0-0",
-    "@fluidframework/protocol-definitions": "^0.1021.0-0",
+    "@fluidframework/protocol-definitions": "^0.1028.2000",
     "debug": "^4.1.1",
     "jwt-decode": "^3.1.2",
     "proper-lockfile": "^4.1.1"
