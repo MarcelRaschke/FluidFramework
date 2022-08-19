@@ -1,0 +1,30 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@fluidframework/tool-utils > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/protocol-base > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - ms-rest-azure > async > lodash:
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/protocol-base > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/odsp-doclib-utils > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - ms-rest-azure > adal-node > async > lodash:
+        patched: '2022-08-19T02:56:31.505Z'
+    - azure-keyvault > ms-rest-azure > async > lodash:
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/odsp-doclib-utils > @fluidframework/driver-utils > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/odsp-doclib-utils > @fluidframework/driver-utils > @fluidframework/protocol-base > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - azure-keyvault > ms-rest-azure > adal-node > async > lodash:
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/odsp-doclib-utils > @fluidframework/driver-utils > @fluidframework/protocol-base > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
+    - '@fluidframework/tool-utils > @fluidframework/odsp-doclib-utils > @fluidframework/driver-utils > @fluidframework/telemetry-utils > @fluidframework/common-utils > lodash':
+        patched: '2022-08-19T02:56:31.505Z'
