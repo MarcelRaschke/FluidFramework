@@ -76,7 +76,7 @@
     "@fluidframework/routerlicious-driver": "^0.28.0",
     "@fluidframework/routerlicious-host": "^0.28.0",
     "@fluidframework/routerlicious-urlresolver": "^0.28.0",
-    "@fluidframework/server-services": "^0.1014.0",
+    "@fluidframework/server-services": "^0.1025.0",
     "@fluidframework/server-services-client": "^0.1014.0",
     "@fluidframework/server-services-core": "^0.1014.0",
     "@fluidframework/server-services-utils": "^0.1014.0",
