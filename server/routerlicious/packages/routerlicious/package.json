@@ -106,7 +106,7 @@
     "eslint-plugin-react": "~7.22.0",
     "eslint-plugin-unicorn": "~26.0.1",
     "html-loader": "^0.5.5",
-    "node-sass": "^4.9.3",
+    "node-sass": "^7.0.2",
     "random-js": "^1.0.8",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
