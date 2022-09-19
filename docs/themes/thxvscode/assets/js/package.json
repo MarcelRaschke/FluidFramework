@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -17,8 +19,10 @@
     "bootstrap": "^3.4.0",
     "jquery": "3.5.0",
     "js-cookie": "^2.1.4",
-    "lodash": "^4.17.4",
-    "react-dom": "^15.6.1",
-    "stickyfilljs": "^2.0.3"
-  }
+    "lodash": "^4.17.21",
+    "react-dom": "^16.5.0",
+    "stickyfilljs": "^2.0.3",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
