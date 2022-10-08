@@ -41,8 +41,8 @@
     "@fluidframework/sequence": "^0.37.0",
     "@fluidframework/view-interfaces": "^0.37.0",
     "css-loader": "^1.0.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "style-loader": "^1.0.0"
   },
   "devDependencies": {
