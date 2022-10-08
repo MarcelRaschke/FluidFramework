@@ -10,11 +10,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "@fluidframework/tool-utils": "^0.35.0",
     "azure-keyvault": "^3.0.4",
-    "ms-rest-azure": "^2.6.0"
-  }
+    "ms-rest-azure": "^2.6.0",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
