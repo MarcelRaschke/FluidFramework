@@ -24,13 +24,13 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "ts-morph": "^4.2.0",
-    "yeoman-generator": "^4.1.0"
+    "yeoman-generator": "^5.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.5",
-    "mocha": "^8.1.1",
+    "mocha": "^9.2.2",
     "shelljs": "^0.8.4",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^2.4.1"
+    "yeoman-test": "^5.0.0"
   }
 }
