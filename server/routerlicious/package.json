@@ -55,7 +55,9 @@
     "tsfmt:fix": "lerna run tsfmt:fix --no-sort --stream --no-bail",
     "watch": "concurrently \"npm run watch:tsc\" \"npm run watch:esnext\"",
     "watch:esnext": "lerna run --parallel build:esnext -- -- --watch",
-    "watch:tsc": "lerna run --parallel tsc -- -- --watch"
+    "watch:tsc": "lerna run --parallel tsc -- -- --watch",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "nyc": {
     "all": true,
@@ -70,7 +72,9 @@
     ],
     "temp-directory": "nyc/.nyc_output"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@snyk/protect": "latest"
+  },
   "devDependencies": {
     "@fluidframework/build-tools": "^0.2.18803",
     "@microsoft/api-documenter": "^7.4.6",
@@ -82,5 +86,6 @@
     "rimraf": "^2.6.2",
     "run-script-os": "^1.1.5",
     "typescript": "~4.1.3"
-  }
+  },
+  "snyk": true
 }
