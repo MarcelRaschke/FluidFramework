@@ -26,7 +26,7 @@
     "@fluidframework/container-runtime": "^0.37.0",
     "@fluidframework/map": "^0.37.0",
     "@fluidframework/matrix": "^0.37.0",
-    "@fluidframework/odsp-driver": "^0.37.0",
+    "@fluidframework/odsp-driver": "^0.58.1000",
     "@fluidframework/sequence": "^0.37.0",
     "source-map-loader": "^0.2.4"
   },
