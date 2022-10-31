@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@fluidframework/mocha-test-setup": "^0.37.0",
-    "@fluidframework/test-runtime-utils": "^0.37.0",
+    "@fluidframework/test-runtime-utils": "^0.58.1000",
     "@graphql-codegen/cli": "1.20.1",
     "@graphql-codegen/typescript": "1.20.2",
     "@microsoft/api-extractor": "^7.13.1",
