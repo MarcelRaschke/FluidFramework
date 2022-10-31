@@ -41,7 +41,7 @@
     "@fluid-example/multiview-coordinate-model": "^0.37.0",
     "@fluid-example/multiview-slider-coordinate-view": "^0.37.0",
     "@fluid-example/prosemirror": "^0.37.0",
-    "@fluid-experimental/get-container": "^0.37.0",
+    "@fluid-experimental/get-container": "^0.58.1000",
     "@fluidframework/aqueduct": "^0.37.0",
     "@fluidframework/core-interfaces": "^0.37.0",
     "@fluidframework/datastore-definitions": "^0.37.0",
