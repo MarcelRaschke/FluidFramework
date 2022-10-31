@@ -33,7 +33,7 @@
     "webpack:dev": "webpack --env.development"
   },
   "dependencies": {
-    "@fluid-experimental/get-container": "^0.37.0",
+    "@fluid-experimental/get-container": "^0.58.1000",
     "@fluidframework/aqueduct": "^0.37.0",
     "css-loader": "^1.0.0",
     "style-loader": "^1.0.0"
