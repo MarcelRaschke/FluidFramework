@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@fluid-experimental/data-objects": "^0.37.0",
-    "@fluid-experimental/fluid-static": "^0.37.0",
-    "@fluid-experimental/get-container": "^0.37.0",
+    "@fluid-experimental/fluid-static": "^0.42.0",
+    "@fluid-experimental/get-container": "^0.58.1000",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
